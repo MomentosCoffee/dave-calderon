@@ -76,7 +76,8 @@
     --grey-30: #B8B5B0;
     --grey-15: #E5E1DB;
     --accent: #D4A95C;
-    --emergency: #DC2626;
+    --emergency: #1E3A5F;
+    --emergency-deep: #142A48;
     --whatsapp: #25D366;
 
     --font-sans: 'Schibsted Grotesk', system-ui, -apple-system, sans-serif;
@@ -214,7 +215,7 @@
     transition: background 0.2s var(--ease);
   }
   @media (min-width: 640px) { .header-cta { display: inline-flex; } }
-  .header-cta:hover { background: #B91C1C; }
+  .header-cta:hover { background: var(--emergency-deep); }
 
   /* ==================== MOBILE MENU ==================== */
   .mobile-menu {
@@ -903,15 +904,18 @@
     z-index: 80;
     display: inline-flex; align-items: center; gap: 12px;
     height: 44px;
-    padding: 0 18px 0 12px;
-    background: var(--white);
-    color: var(--black);
+    padding: 0 18px 0 14px;
+    background: rgba(15, 25, 41, 0.88);
+    color: var(--white);
     font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase;
     border-radius: 0;
-    box-shadow: 0 4px 16px rgba(0,0,0,0.3);
-    transition: background 0.2s var(--ease), color 0.2s var(--ease);
+    border: 1px solid rgba(255,255,255,0.12);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    box-shadow: 0 6px 22px rgba(0,0,0,0.35);
+    transition: background 0.25s var(--ease), border-color 0.25s var(--ease);
   }
-  .bot-toggle:hover { background: var(--accent); }
+  .bot-toggle:hover { background: rgba(20, 35, 55, 0.95); border-color: rgba(212,169,92,0.5); }
   .bot-toggle-dot {
     width: 6px; height: 6px; border-radius: 50%;
     background: #34D399;
@@ -1033,7 +1037,8 @@
         linear-gradient(180deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.25) 35%, rgba(0,0,0,0.85) 100%),
         linear-gradient(90deg, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.25) 100%);
     }
-    .chapter-bg img { object-position: 75% center; }
+    .chapter-bg img { object-position: right center; }
+    #contact .contact-bg img { object-position: center center; }
     .hero-overlay {
       background:
         linear-gradient(180deg, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.2) 35%, rgba(0,0,0,0.92) 100%);
@@ -1044,7 +1049,7 @@
 
   /* Mobile (<= 640px) */
   @media (max-width: 640px) {
-    :root { --container-px: 22px; }
+    :root { --container-px: 28px; }
     body { padding-bottom: 80px; }
 
     /* Header */
@@ -1121,7 +1126,7 @@
 
   /* Very small phones (<= 380px) — iPhone SE, older Androids */
   @media (max-width: 380px) {
-    :root { --container-px: 18px; }
+    :root { --container-px: 22px; }
     .hero-h1 { font-size: 32px; line-height: 1; }
     .chapter-h2, .about-h2, .contact-h2 { font-size: 28px; }
     .coverage-h2, .process-h2 { font-size: 32px; }
