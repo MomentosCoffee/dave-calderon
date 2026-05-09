@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -1473,10 +1473,10 @@
 <!-- ════════════════════ BOT PANEL ════════════════════ -->
 <div class="bot-panel" id="botPanel" role="dialog" aria-label="Sofia assistant">
   <div class="bot-header">
-    <div class="bot-avatar">S</div>
+    <div class="bot-avatar">D</div>
     <div class="bot-meta">
-      <strong>Sofia</strong>
-      <span data-i18n="bot.role">Dave's assistant · Online</span>
+      <strong data-i18n="bot.title">Expert</strong>
+      <span data-i18n="bot.role">Dave Calderón's team · Online</span>
     </div>
     <button class="bot-close" id="botClose" aria-label="Close">
       <svg viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 1l12 12M13 1L1 13" stroke="currentColor" stroke-width="1.2"/></svg>
@@ -1544,8 +1544,8 @@ const I18N = {
     'cont.intro':'Mientras más rápido actuemos, más fácil documentar el accidente. Escoge el canal que prefieras.',
     'cont.ch.call':'Llamada · USA · 24/7',
     'cont.ch.wa':'WhatsApp · Internacional · 24/7',
-    'cont.ch.bot':'Preguntas rápidas · con Sofía',
-    'cont.ch.bot.v':'Abrir asistente',
+    'cont.ch.bot':'Preguntas rápidas · con un experto',
+    'cont.ch.bot.v':'Abrir chat',
 
     'form.eyebrow':'Enviar mensaje',
     'form.t1':'Cuéntame qué','form.t2':'pasó.',
@@ -1569,8 +1569,9 @@ const I18N = {
     'footer.rights':'Todos los derechos reservados',
     'footer.made':'Hecho por Remake',
 
-    'bot.toggle':'Hablar con Sofía',
-    'bot.role':'Asistente de Dave · En línea'
+    'bot.toggle':'Habla con un experto',
+    'bot.title':'Experto',
+    'bot.role':'Equipo Dave Calderón · En línea'
   },
   en: {
     'nav.s1':'Auto','nav.s2':'Work','nav.s3':'Fall','nav.s4':'Dog','nav.about':'About',
@@ -1628,8 +1629,8 @@ const I18N = {
     'cont.intro':'The faster we act, the easier it is to document the accident properly. Choose the channel that works for you.',
     'cont.ch.call':'Call · USA · 24/7',
     'cont.ch.wa':'WhatsApp · International · 24/7',
-    'cont.ch.bot':'Quick questions · with Sofia',
-    'cont.ch.bot.v':'Open the assistant',
+    'cont.ch.bot':'Quick questions · with an expert',
+    'cont.ch.bot.v':'Open chat',
 
     'form.eyebrow':'Send a message',
     'form.t1':'Tell me what','form.t2':'happened.',
@@ -1653,8 +1654,9 @@ const I18N = {
     'footer.rights':'All rights reserved',
     'footer.made':'Crafted by Remake',
 
-    'bot.toggle':'Ask Sofia',
-    'bot.role':"Dave's assistant · Online"
+    'bot.toggle':'Talk to an expert',
+    'bot.title':'Expert',
+    'bot.role':"Dave Calderón's team · Online"
   }
 };
 
@@ -1679,8 +1681,8 @@ document.querySelectorAll('.lang-btn').forEach(btn => btn.addEventListener('clic
 (function initLang() {
   let saved = null;
   try { saved = localStorage.getItem('dave_lang'); } catch(e) {}
-  const browser = (navigator.language || 'es').slice(0,2);
-  const lang = saved || (browser === 'en' ? 'en' : 'es');
+  const browser = (navigator.language || 'en').slice(0,2);
+  const lang = saved || (browser === 'es' ? 'es' : 'en');
   setLang(lang);
 })();
 
@@ -1737,7 +1739,7 @@ document.querySelectorAll('.fade-in').forEach(el => {
 const BOT = {
   es: {
     start: {
-      msg: 'Hola, soy Sofía. ¿En qué te ayudo?',
+      msg: 'Hola, ¿en qué te puedo ayudar?',
       options: [
         { t: 'Tuve un accidente', next: 'tipo' },
         { t: 'Conozco a alguien lastimado', next: 'referido' },
@@ -1789,7 +1791,7 @@ const BOT = {
   },
   en: {
     start: {
-      msg: "Hi, I'm Sofia. How can I help?",
+      msg: 'Hi, how can I help you?',
       options: [
         { t: 'I had an accident', next: 'tipo' },
         { t: 'I know someone who was hurt', next: 'referido' },
