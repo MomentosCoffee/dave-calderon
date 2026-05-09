@@ -76,8 +76,8 @@
     --grey-30: #B8B5B0;
     --grey-15: #E5E1DB;
     --accent: #D4A95C;
-    --emergency: #1E3A5F;
-    --emergency-deep: #142A48;
+    --emergency: #2E86AB;
+    --emergency-deep: #1F6889;
     --whatsapp: #25D366;
 
     --font-sans: 'Schibsted Grotesk', system-ui, -apple-system, sans-serif;
@@ -1062,8 +1062,9 @@
 
   /* Mobile (<= 640px) */
   @media (max-width: 640px) {
-    :root { --container-px: 28px; }
+    :root { --container-px: 34px; }
     body { padding-bottom: 80px; }
+    .chapter-content, .hero-text, .about-text, .contact-info { padding-right: 12px; }
 
     /* Header */
     .header-cta { display: none; }
@@ -1073,15 +1074,15 @@
     .hero { height: auto; min-height: 100svh; }
     .hero-content { padding-bottom: clamp(48px, 8vh, 72px); padding-top: calc(var(--header-h) + 32px); }
     .hero-eyebrow-row { font-size: 9px; letter-spacing: 0.18em; margin-bottom: 20px; }
-    .hero-h1 { max-width: 100%; font-size: clamp(34px, 9.5vw, 52px); margin-bottom: 18px; }
-    .hero-sub { font-size: 14px; max-width: 100%; margin-bottom: 28px; }
+    .hero-h1 { max-width: 100%; font-size: clamp(30px, 8.5vw, 46px); margin-bottom: 18px; line-height: 1.02; }
+    .hero-sub { font-size: 14px; max-width: 100%; margin-bottom: 28px; line-height: 1.6; }
     .hero-cta-row { flex-direction: column; align-items: stretch; gap: 8px; }
     .btn-primary, .btn-outline { width: 100%; justify-content: space-between; height: 52px; padding: 0 22px; font-size: 11px; }
     .hero-disclaimer { position: static; margin-top: 24px; text-align: left; max-width: 100%; padding: 0; opacity: 0.5; font-size: 9px; }
 
     /* Chapters */
-    .chapter-h2 { font-size: clamp(30px, 8vw, 44px); }
-    .chapter-text { font-size: 14px; max-width: 100%; margin-bottom: 28px; }
+    .chapter-h2 { font-size: clamp(26px, 7vw, 38px); line-height: 1.05; }
+    .chapter-text { font-size: 14px; max-width: 100%; margin-bottom: 28px; line-height: 1.6; }
     .chapter-eyebrow { font-size: 9px; letter-spacing: 0.18em; margin-bottom: 16px; }
 
     /* Coverage */
@@ -1139,7 +1140,8 @@
 
   /* Very small phones (<= 380px) — iPhone SE, older Androids */
   @media (max-width: 380px) {
-    :root { --container-px: 22px; }
+    :root { --container-px: 28px; }
+    .chapter-content, .hero-text, .about-text, .contact-info { padding-right: 8px; }
     .hero-h1 { font-size: 32px; line-height: 1; }
     .chapter-h2, .about-h2, .contact-h2 { font-size: 28px; }
     .coverage-h2, .process-h2 { font-size: 32px; }
