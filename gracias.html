@@ -1,100 +1,292 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Gracias · Dave Calderón</title>
+<title>Thanks · Dave Calderón</title>
 <meta name="robots" content="noindex, nofollow">
-<meta name="theme-color" content="#0F1F3D">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230F1F3D'/%3E%3Ctext x='16' y='22' font-family='Georgia,serif' font-size='16' font-weight='700' fill='%23D4A95C' text-anchor='middle'%3EDC%3C/text%3E%3C/svg%3E">
+<meta name="theme-color" content="#000000">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23000'/%3E%3Ctext x='16' y='22' font-family='Georgia,serif' font-size='15' font-weight='400' font-style='italic' fill='%23fff' text-anchor='middle'%3EDC%3C/text%3E%3C/svg%3E">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;600;700;800&family=Fraunces:ital,opsz,wght@1,9..144,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700&family=Fraunces:ital,opsz,wght@0,9..144,300;1,9..144,300&display=swap" rel="stylesheet">
 
 <style>
   :root {
-    --navy: #0F1F3D; --navy-deep: #081024; --gold: #D4A95C;
-    --brasa: #E8723D; --whatsapp: #25D366; --emergency: #DC2626;
-    --cream-light: #FDFBF6; --ink: #14181F; --ink-soft: #475266;
+    --black: #000; --white: #FFF; --cream: #F5F2ED;
+    --grey-30: #B8B5B0; --accent: #D4A95C;
+    --emergency: #DC2626; --whatsapp: #25D366;
+    --font-sans: 'Schibsted Grotesk', system-ui, sans-serif;
+    --font-serif: 'Fraunces', Georgia, serif;
+    --ease: cubic-bezier(0.16, 1, 0.3, 1);
   }
-  * { box-sizing: border-box; }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   body {
-    margin: 0;
-    font-family: 'Schibsted Grotesk', system-ui, sans-serif;
-    background: linear-gradient(135deg, var(--navy-deep), var(--navy));
-    color: #fff;
-    min-height: 100vh;
+    font-family: var(--font-sans);
+    background: var(--black); color: var(--white);
+    min-height: 100vh; min-height: 100svh;
     display: grid; place-items: center;
-    padding: 24px;
+    padding: clamp(24px, 5vw, 56px);
+    overflow-x: hidden;
   }
+  .bg {
+    position: fixed; inset: 0; z-index: 0;
+    background:
+      radial-gradient(circle at 80% 20%, rgba(212,169,92,0.08), transparent 50%),
+      radial-gradient(circle at 20% 80%, rgba(220,38,38,0.06), transparent 60%);
+    pointer-events: none;
+  }
+  .lang-switch {
+    position: fixed; top: 24px; right: 24px;
+    z-index: 10;
+    display: flex; gap: 0;
+    height: 28px;
+  }
+  .lang-switch button {
+    padding: 0 10px;
+    font: inherit; font-size: 10px; font-weight: 600;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: rgba(255,255,255,0.4);
+    background: none; border: 0; cursor: pointer;
+    transition: color 0.2s var(--ease);
+  }
+  .lang-switch button.active { color: var(--white); }
+  .lang-switch button + button { border-left: 1px solid rgba(255,255,255,0.18); }
+  .lang-switch button:hover:not(.active) { color: rgba(255,255,255,0.7); }
+
   .card {
-    max-width: 540px;
-    background: rgba(255,255,255,0.04);
-    border: 1px solid rgba(212,169,92,0.2);
-    border-radius: 24px;
-    padding: 56px 40px;
+    position: relative; z-index: 1;
+    max-width: 640px; width: 100%;
     text-align: center;
-    backdrop-filter: blur(10px);
   }
-  .check-circle {
-    width: 80px; height: 80px;
-    background: var(--gold);
-    color: var(--navy);
+  .check {
+    width: 56px; height: 56px;
+    margin: 0 auto clamp(24px, 4vw, 36px);
+    border: 1px solid var(--accent);
     border-radius: 50%;
-    margin: 0 auto 24px;
     display: grid; place-items: center;
-    font-size: 42px; font-weight: 800;
+    color: var(--accent);
+  }
+  .check svg { width: 22px; height: 22px; }
+
+  .eyebrow {
+    font-size: 10px; font-weight: 600; letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.45);
+    margin-bottom: 18px;
   }
   h1 {
-    font-size: 36px; font-weight: 800; margin: 0 0 12px;
-    letter-spacing: -0.02em;
+    font-size: clamp(34px, 5vw, 56px);
+    font-weight: 500;
+    line-height: 1;
+    letter-spacing: -0.025em;
+    text-transform: uppercase;
+    margin-bottom: clamp(14px, 2vw, 18px);
   }
   h1 em {
-    font-family: 'Fraunces', serif; font-style: italic; font-weight: 400; color: var(--gold);
+    font-family: var(--font-serif);
+    font-style: italic; font-weight: 300;
+    text-transform: none;
+    letter-spacing: -0.015em;
+    display: block;
+    color: var(--accent);
   }
-  p { font-size: 17px; color: rgba(255,255,255,0.78); line-height: 1.55; margin: 0 0 28px; }
-  .ctas { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin-top: 16px; }
+  .lead {
+    font-size: clamp(15px, 1.4vw, 17px);
+    line-height: 1.6;
+    color: rgba(255,255,255,0.78);
+    max-width: 48ch;
+    margin: 0 auto clamp(36px, 5vw, 48px);
+  }
+  .lead strong { color: var(--white); font-weight: 600; }
+
+  .timeline {
+    border-top: 1px solid rgba(255,255,255,0.1);
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    padding: clamp(28px, 4vw, 40px) 0;
+    margin: 0 auto clamp(36px, 5vw, 48px);
+    max-width: 540px;
+    display: grid; gap: 18px;
+    text-align: left;
+  }
+  .step {
+    display: grid; grid-template-columns: 36px 1fr;
+    gap: 16px; align-items: start;
+  }
+  .step-num {
+    font-family: var(--font-serif); font-style: italic; font-weight: 300;
+    font-size: 22px;
+    color: var(--accent);
+    line-height: 1;
+    padding-top: 2px;
+  }
+  .step-text {
+    font-size: 13px;
+    line-height: 1.55;
+    color: rgba(255,255,255,0.78);
+    letter-spacing: 0.02em;
+  }
+  .step-text strong { color: var(--white); font-weight: 600; }
+
+  .urgent {
+    font-size: 11px; font-weight: 600; letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.5);
+    margin-bottom: 16px;
+  }
+  .ctas {
+    display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;
+    margin-bottom: clamp(36px, 5vw, 48px);
+  }
   .btn {
-    padding: 14px 22px; border-radius: 99px;
-    font-size: 15px; font-weight: 700;
-    display: inline-flex; align-items: center; gap: 8px;
-    text-decoration: none; color: #fff;
-    transition: transform 0.2s;
+    display: inline-flex; align-items: center; justify-content: center; gap: 14px;
+    height: 50px; padding: 0 26px;
+    font-size: 11px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase;
+    color: #fff;
+    transition: opacity 0.2s var(--ease);
   }
+  .btn:hover { opacity: 0.85; }
   .btn-call { background: var(--emergency); }
   .btn-wa { background: var(--whatsapp); }
-  .btn:hover { transform: translateY(-2px); }
+  .btn svg { width: 14px; height: 14px; }
+
   .back {
-    display: inline-block; margin-top: 28px;
-    color: var(--gold); font-size: 14px; text-decoration: none;
-    border-bottom: 1px solid rgba(212,169,92,0.4);
+    display: inline-block;
+    color: rgba(255,255,255,0.5);
+    font-size: 11px; font-weight: 500; letter-spacing: 0.16em; text-transform: uppercase;
+    border-bottom: 1px solid rgba(255,255,255,0.2);
+    padding-bottom: 4px;
+    transition: color 0.2s, border-color 0.2s;
+    text-decoration: none;
   }
-  .disclaimer {
-    margin-top: 32px;
-    font-size: 12px; color: rgba(255,255,255,0.45);
-    line-height: 1.5;
+  .back:hover { color: var(--white); border-color: var(--white); }
+
+  .legal {
+    margin-top: clamp(40px, 6vw, 64px);
+    font-size: 10px; font-weight: 500; letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.3);
+    line-height: 1.7;
   }
+
+  [hidden] { display: none !important; }
 </style>
 </head>
 <body>
-  <div class="card">
-    <div class="check-circle">✓</div>
-    <h1>¡Recibido!<br><em>Te contacto pronto.</em></h1>
-    <p>Recibí tu información. <strong>Te llamo o escribo en menos de 1 hora</strong> para escucharte y entender cómo te puedo ayudar.</p>
-    <p style="font-size:15px;">Si necesitas hablar conmigo <strong>ahora mismo</strong>:</p>
+  <div class="bg"></div>
 
-    <div class="ctas">
-      <a class="btn btn-call" href="tel:+15162337514">📞 516-233-7514</a>
-      <a class="btn btn-wa" href="https://wa.me/573118727608" target="_blank" rel="noopener">💬 WhatsApp</a>
+  <div class="lang-switch" role="tablist">
+    <button class="active" data-lang="en" type="button">EN</button>
+    <button data-lang="es" type="button">ES</button>
+  </div>
+
+  <main class="card">
+    <div class="check" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M5 12.5l4.5 4.5L19 7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
     </div>
 
-    <a href="/" class="back">← Volver al inicio</a>
+    <div class="eyebrow" data-i18n="eyebrow">Message received</div>
 
-    <p class="disclaimer">
-      Dave Calderón NO es abogado y NO proporciona asesoría legal.<br>
-      Su servicio consiste en conectar víctimas de accidentes con profesionales legales independientes.
+    <h1>
+      <span data-i18n="h1.l1">Thank you.</span>
+      <em data-i18n="h1.l2">I'll reach out shortly.</em>
+    </h1>
+
+    <p class="lead" data-i18n="lead">
+      I received your information and will <strong>contact you within the next hour</strong>. While you wait, here's what happens next.
     </p>
-  </div>
+
+    <div class="timeline">
+      <div class="step">
+        <div class="step-num">01</div>
+        <div class="step-text" data-i18n="step1"><strong>Confirmation.</strong> You'll receive a WhatsApp message confirming I got your details.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">02</div>
+        <div class="step-text" data-i18n="step2"><strong>Quick call.</strong> I'll call you to understand the accident — 5 to 10 minutes, no commitment.</div>
+      </div>
+      <div class="step">
+        <div class="step-num">03</div>
+        <div class="step-text" data-i18n="step3"><strong>Connection.</strong> I'll connect you with the right attorney, medical team or advisor for your case.</div>
+      </div>
+    </div>
+
+    <div class="urgent" data-i18n="urgent">If you need help right now</div>
+    <div class="ctas">
+      <a class="btn btn-call" href="tel:+15162337514">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.37 1.9.72 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.35 1.85.59 2.81.72A2 2 0 0 1 22 16.92z" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        516-233-7514
+      </a>
+      <a class="btn btn-wa" href="https://wa.me/573118727608?text=Hi%20Dave%2C%20I%20just%20sent%20you%20a%20message%20through%20your%20website." target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg"><path d="M17.5 14.4c-.3-.1-1.7-.8-2-.9-.3-.1-.5-.2-.7.2-.2.3-.7.9-.9 1.1-.2.2-.3.2-.6.1-.3-.2-1.2-.5-2.4-1.5-.9-.8-1.5-1.8-1.6-2.1-.2-.3 0-.5.1-.6.1-.1.3-.3.4-.5.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5 0-.1-.7-1.7-1-2.3-.3-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.1 3.2 5 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.7-.7 2-1.4.2-.7.2-1.2.2-1.4 0-.1-.3-.2-.5-.3z"/><path d="M20.5 3.5C18.2 1.2 15.2 0 12 0 5.4 0 .1 5.3.1 11.9c0 2.1.6 4.1 1.6 5.9L0 24l6.4-1.7c1.7.9 3.6 1.5 5.6 1.5h.1c6.6 0 11.9-5.3 11.9-11.9 0-3.2-1.2-6.2-3.5-8.4zM12 21.8c-1.8 0-3.5-.5-5-1.4l-.4-.2-3.7 1 1-3.6-.2-.4c-1-1.6-1.5-3.4-1.5-5.3 0-5.5 4.4-9.9 9.9-9.9 2.6 0 5.1 1 7 2.9s2.9 4.4 2.9 7c0 5.4-4.5 9.9-10 9.9z"/></svg>
+        WhatsApp
+      </a>
+    </div>
+
+    <a class="back" href="/" data-i18n="back">← Back to home</a>
+
+    <p class="legal" data-i18n="legal">
+      Dave Calderón is not an attorney. Not legal advice. His role is to connect you with qualified professionals.
+    </p>
+  </main>
+
+<script>
+const I18N = {
+  en: {
+    title: 'Thanks · Dave Calderón',
+    eyebrow: 'Message received',
+    'h1.l1': 'Thank you.',
+    'h1.l2': "I'll reach out shortly.",
+    lead: "I received your information and will <strong>contact you within the next hour</strong>. While you wait, here's what happens next.",
+    step1: '<strong>Confirmation.</strong> You\'ll receive a WhatsApp message confirming I got your details.',
+    step2: '<strong>Quick call.</strong> I\'ll call you to understand the accident — 5 to 10 minutes, no commitment.',
+    step3: '<strong>Connection.</strong> I\'ll connect you with the right attorney, medical team or advisor for your case.',
+    urgent: 'If you need help right now',
+    back: '← Back to home',
+    legal: 'Dave Calderón is not an attorney. Not legal advice. His role is to connect you with qualified professionals.'
+  },
+  es: {
+    title: 'Gracias · Dave Calderón',
+    eyebrow: 'Mensaje recibido',
+    'h1.l1': 'Gracias.',
+    'h1.l2': 'Te contacto pronto.',
+    lead: 'Recibí tu información y te <strong>contacto en menos de una hora</strong>. Mientras esperas, esto es lo que sigue.',
+    step1: '<strong>Confirmación.</strong> Recibirás un mensaje por WhatsApp confirmando que llegó tu información.',
+    step2: '<strong>Llamada corta.</strong> Te llamo para entender el accidente — 5 a 10 minutos, sin compromiso.',
+    step3: '<strong>Conexión.</strong> Te pongo en contacto con el abogado, equipo médico o asesor correcto para tu caso.',
+    urgent: 'Si necesitas ayuda ahora mismo',
+    back: '← Volver al inicio',
+    legal: 'Dave Calderón no es abogado. No es asesoría legal. Su rol es conectarte con profesionales calificados.'
+  }
+};
+
+let lang = 'en';
+try {
+  const saved = localStorage.getItem('dave_lang');
+  if (saved && I18N[saved]) lang = saved;
+} catch(e) {}
+
+function setLang(l) {
+  if (!I18N[l]) return;
+  lang = l;
+  document.documentElement.lang = l;
+  document.title = I18N[l].title;
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const k = el.dataset.i18n;
+    if (I18N[l][k] !== undefined) el.innerHTML = I18N[l][k];
+  });
+  document.querySelectorAll('.lang-switch button').forEach(b => {
+    b.classList.toggle('active', b.dataset.lang === l);
+  });
+  try { localStorage.setItem('dave_lang', l); } catch(e) {}
+}
+
+document.querySelectorAll('.lang-switch button').forEach(b => {
+  b.addEventListener('click', () => setLang(b.dataset.lang));
+});
+
+setLang(lang);
+</script>
 </body>
 </html>
