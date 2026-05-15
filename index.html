@@ -67,6 +67,46 @@
 }
 </script>
 
+<!-- ════════════════════ TRACKING ════════════════════ -->
+<!-- Microsoft Clarity: heatmaps + session recordings (gratis, sin límite) -->
+<!-- Crear cuenta en clarity.microsoft.com → Project → copiar Project ID → reemplazar REPLACE_CLARITY_ID -->
+<script type="text/javascript">
+  (function(c,l,a,r,i,t,y){
+    c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+    t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+    y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+  })(window, document, "clarity", "script", "REPLACE_CLARITY_ID");
+</script>
+
+<!-- Meta Pixel: tracking de conversiones de Meta Ads -->
+<!-- Crear pixel en business.facebook.com/events_manager → copiar Pixel ID → reemplazar REPLACE_META_PIXEL_ID -->
+<script>
+  !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+  n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+  document,'script','https://connect.facebook.net/en_US/fbevents.js');
+  if (window.fbq) {
+    fbq('init', 'REPLACE_META_PIXEL_ID');
+    fbq('track', 'PageView');
+  }
+</script>
+<noscript><img height="1" width="1" style="display:none"
+  src="https://www.facebook.com/tr?id=REPLACE_META_PIXEL_ID&ev=PageView&noscript=1"/></noscript>
+
+<!-- Google Analytics 4: tracking general + conversiones de Google Ads -->
+<!-- Crear property en analytics.google.com → Admin → Data Streams → copiar Measurement ID (G-XXXX) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=REPLACE_GA4_ID"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'REPLACE_GA4_ID', {
+    send_page_view: true,
+    anonymize_ip: false
+  });
+</script>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@400;500;600;700;800;900&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300;1,9..144,400&display=swap" rel="stylesheet">
@@ -1462,7 +1502,7 @@
         </div>
       </div>
 
-      <form class="form fade-in delay-2" id="leadForm" action="https://formspree.io/f/REPLACE_WITH_FORMSPREE_ID" method="POST">
+      <form class="form fade-in delay-2" id="leadForm" data-webhook="REPLACE_WITH_MAKECOM_WEBHOOK_URL">
         <input type="hidden" name="utm_source" id="utm_source">
         <input type="hidden" name="utm_medium" id="utm_medium">
         <input type="hidden" name="utm_campaign" id="utm_campaign">
@@ -1836,23 +1876,122 @@ if (channelBot) channelBot.addEventListener('click', openBot);
   }
 })();
 
-/* ═════ Form submit: loading state + tracking timestamp + lang ═════ */
+/* ═════ Form submit: fetch POST a Make.com webhook (no Formspree) ═════ */
 const leadForm = document.getElementById('leadForm');
 if (leadForm) {
-  leadForm.addEventListener('submit', () => {
+  leadForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
     const submitBtn = leadForm.querySelector('.form-submit');
     const submitText = submitBtn ? submitBtn.querySelector('span') : null;
+    const originalText = submitText ? submitText.textContent : 'Enviar mensaje';
+    const webhookUrl = leadForm.dataset.webhook;
+
+    // Llenar campos auto antes de mandar
     const tsField = document.getElementById('submitted_at');
     const langField = document.getElementById('form_lang');
     if (tsField) tsField.value = new Date().toISOString();
     if (langField) langField.value = CURRENT_LANG;
+
+    // Honeypot anti-spam
+    const honeypot = leadForm.querySelector('input[name="_gotcha"]');
+    if (honeypot && honeypot.value) {
+      // Bot detectado, silently fail
+      window.location.href = '/gracias.html';
+      return;
+    }
+
+    // Construir payload JSON
+    const formData = new FormData(leadForm);
+    const payload = {};
+    formData.forEach((value, key) => {
+      if (key !== '_gotcha') payload[key] = value;
+    });
+    payload.user_agent = navigator.userAgent;
+    payload.screen = `${window.screen.width}x${window.screen.height}`;
+    payload.viewport = `${window.innerWidth}x${window.innerHeight}`;
+
+    // Loading state
     if (submitBtn && submitText) {
       submitBtn.style.opacity = '0.7';
       submitBtn.style.pointerEvents = 'none';
       submitText.textContent = 'Enviando…';
     }
+
+    // Fire conversion events ANTES del fetch (por si el fetch tarda)
+    if (typeof fbq === 'function') {
+      fbq('track', 'Lead', {
+        content_category: payload.tipo_accidente || 'unknown',
+        content_name: 'lead_form_submit',
+        value: 50,
+        currency: 'USD'
+      });
+    }
+    if (typeof gtag === 'function') {
+      gtag('event', 'generate_lead', {
+        currency: 'USD',
+        value: 50,
+        accident_type: payload.tipo_accidente,
+        state: payload.estado
+      });
+    }
+    if (typeof clarity === 'function') {
+      clarity('event', 'lead_submitted');
+    }
+
+    // POST al webhook de Make.com
+    try {
+      // Sin webhook configurado todavía → fallback a mailto (modo dev)
+      if (!webhookUrl || webhookUrl.includes('REPLACE_WITH')) {
+        console.warn('[Dave] Webhook no configurado. Lead capturado en localStorage:', payload);
+        try {
+          const pending = JSON.parse(localStorage.getItem('dave_pending_leads') || '[]');
+          pending.push(payload);
+          localStorage.setItem('dave_pending_leads', JSON.stringify(pending));
+        } catch(e) {}
+        window.location.href = '/gracias.html';
+        return;
+      }
+
+      const response = await fetch(webhookUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+
+      if (response.ok || response.status === 0) {
+        window.location.href = '/gracias.html';
+      } else {
+        throw new Error('Webhook respondió ' + response.status);
+      }
+    } catch (err) {
+      console.error('[Dave] Error enviando lead:', err);
+      // Restaurar botón
+      if (submitBtn && submitText) {
+        submitBtn.style.opacity = '1';
+        submitBtn.style.pointerEvents = 'auto';
+        submitText.textContent = originalText;
+      }
+      // Fallback: ir a gracias.html igual (no perder el lead — Make reintenta)
+      alert('Hubo un problema enviando tu mensaje. Por favor llámanos al 516-233-7514 o escríbenos por WhatsApp.');
+    }
   });
 }
+
+/* ═════ Conversion tracking en CTAs (call + WhatsApp) ═════ */
+document.querySelectorAll('a[href^="tel:"]').forEach(el => {
+  el.addEventListener('click', () => {
+    if (typeof fbq === 'function') fbq('track', 'Contact', { content_name: 'phone_call_click' });
+    if (typeof gtag === 'function') gtag('event', 'phone_call_click');
+    if (typeof clarity === 'function') clarity('event', 'phone_call_click');
+  });
+});
+document.querySelectorAll('a[href*="wa.me"]').forEach(el => {
+  el.addEventListener('click', () => {
+    if (typeof fbq === 'function') fbq('track', 'Contact', { content_name: 'whatsapp_click' });
+    if (typeof gtag === 'function') gtag('event', 'whatsapp_click');
+    if (typeof clarity === 'function') clarity('event', 'whatsapp_click');
+  });
+});
 
 /* ═════ Year ═════ */
 document.getElementById('year').textContent = new Date().getFullYear();
