@@ -1537,12 +1537,20 @@
           </select>
         </div>
         <div class="form-row">
-          <label for="f-estado">Estado donde ocurrió</label>
-          <input id="f-estado" name="estado" type="text" autocomplete="address-level1" placeholder="New York, Florida, Texas...">
+          <label for="f-fecha">Fecha del accidente</label>
+          <input id="f-fecha" name="fecha_accidente" type="date" required autocomplete="off">
+        </div>
+        <div class="form-row">
+          <label for="f-lugar">Dónde ocurrió el accidente</label>
+          <input id="f-lugar" name="lugar_accidente" type="text" required autocomplete="address-level1" placeholder="Ciudad y estado, ej: Brooklyn, New York">
+        </div>
+        <div class="form-row">
+          <label for="f-vive">Dónde vives actualmente</label>
+          <input id="f-vive" name="ciudad_vive" type="text" required autocomplete="address-level2" placeholder="Ciudad y estado donde vives, ej: Queens, New York">
         </div>
         <div class="form-row">
           <label for="f-detalle">Detalles breves (opcional)</label>
-          <textarea id="f-detalle" name="detalle" rows="3" placeholder="Cuándo ocurrió, lesiones, ¿ya hablaste con alguien?"></textarea>
+          <textarea id="f-detalle" name="detalle" rows="3" placeholder="Lesiones, otros conductores, ya hablaste con seguro/abogado, etc."></textarea>
         </div>
 
         <label class="form-checkbox">
