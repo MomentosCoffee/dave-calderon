@@ -1782,10 +1782,187 @@
 </div>
 
 <script>
-/* ═════ Language: SOLO ESPAÑOL ═════ */
-const CURRENT_LANG = 'es';
-document.documentElement.lang = 'es';
-/* I18N system removed — page is Spanish-only per Dave's compliance preference */
+/* ═════ I18N — Spanish/English bilingual system ═════ */
+const I18N = {
+  es: {
+    'nav.auto':'Auto','nav.work':'Trabajo','nav.coverage':'Cobertura','nav.about':'Sobre Dave',
+    'nav.cta':'Llamar ya · Gratis',
+    'mm.auto':'Accidente de Auto','mm.work':'Accidente de Trabajo','mm.cov':'Cobertura',
+    'mm.about':'Sobre Dave','mm.contact':'Contacto',
+    'hero.eyebrow':'Atención bilingüe · 24/7 todos los días',
+    'hero.h1.l1':'¿Tuviste un','hero.h1.l2':'accidente?','hero.h1.l3':'No estás solo.',
+    'hero.sub':'Te oriento <strong>GRATIS</strong> sobre tus opciones y te conecto con abogados especializados en accidentes de auto, trabajo, caídas y mordidas de perro en Estados Unidos. En español o inglés. <strong>Sin costo inicial. Tu estatus no importa.</strong> NO soy abogado, NO doy asesoría legal.',
+    'hero.cta.call':'Llamar Ya · Gratis 24/7',
+    'hero.cta.write':'Recibir orientación gratis',
+    'hero.disclaimer':'<strong>Dave Calderón NO es abogado.</strong> Este sitio NO ofrece asesoría legal. Mi rol es escucharte y conectarte con un abogado independiente según tu caso.',
+    'auto.eyebrow':'Accidente de Auto',
+    'auto.h1':'Choques, atropellos,','auto.h2':'lo inesperado.',
+    'auto.text':'Si tuviste un accidente vehicular en Estados Unidos, escucho lo que pasó y te oriento sobre tus opciones. Después te conecto con un abogado especializado en tu zona — sea un choque trasero, colisión múltiple, atropello, o accidente con conductor sin seguro.',
+    'auto.cta':'Tuve un accidente de auto',
+    'work.eyebrow':'Accidente de Trabajo',
+    'work.h1':'En el trabajo.','work.h2':'En una obra, una bodega, una cocina.',
+    'work.text':'Construcción, restaurantes, almacenes, fábricas. Si te lastimaste trabajando en Estados Unidos, escucho tu caso y te oriento. Después te conecto con un abogado especializado en Workers\' Compensation o responsabilidad de terceros, según corresponda.',
+    'work.cta':'Me lastimé en el trabajo',
+    'cov.eyebrow':'Cobertura nacional',
+    'cov.h1':'34 estados.','cov.h2':'Una llamada.',
+    'cov.intro':'Trabajo con una red de abogados independientes en 34 estados de Estados Unidos. Donde sea que ocurrió tu accidente, probablemente hay un profesional listo para escucharte. Te oriento sobre tus opciones y te conecto con el abogado adecuado para tu caso.',
+    'cov.stat1':'Estados cubiertos','cov.stat2':'Atención bilingüe','cov.stat3':'Consulta inicial',
+    'about.eyebrow':'Quién soy',
+    'about.h1':'Dave Calderón.','about.h2':'Tu primer contacto.',
+    'about.p1':'Sé lo que se siente llegar a un país nuevo y que el lenguaje legal parezca escrito en tu contra. Por eso hago lo que hago: te escucho en español, entiendo tu caso, y te oriento sobre tus opciones.',
+    'about.quote':'"Mi misión es simple: que ningún latino en Estados Unidos quede solo después de un accidente. Yo te escucho, te oriento, y te pongo en contacto con un abogado que sí pueda llevar tu caso."',
+    'about.p2':'<strong>NO soy abogado. NO doy asesoría legal.</strong> Mi rol es escuchar lo que pasó, orientarte sobre tus opciones, y conectarte con un abogado independiente especializado en tu tipo de accidente y en tu estado.',
+    'about.c1':'Atención bilingüe ES/EN','about.c2':'Sin costo por escucharte','about.c3':'Tu estatus no importa',
+    'about.c4':'Confidencial','about.c5':'Red en 34 estados','about.c6':'NO soy abogado',
+    'proc.eyebrow':'Cómo funciona',
+    'proc.h1':'Tres pasos.','proc.h2':'Sin papeleo. Sin presión.',
+    'proc.s1.t':'Cuéntame qué pasó','proc.s1.d':'Llámame, escríbeme por WhatsApp o llena el formulario. En español o inglés. Sin compromiso.',
+    'proc.s2.t':'Hablamos de tu caso','proc.s2.d':'Te hago algunas preguntas para entender qué pasó, cuándo y dónde. Te oriento sobre tus opciones con información directa, sin promesas exageradas.',
+    'proc.s3.t':'Te conecto con un abogado','proc.s3.d':'Te pongo en contacto directo con un abogado independiente especializado en tu tipo de accidente y en el estado donde ocurrió. El abogado evalúa tu caso y decide cómo proceder.',
+    'cont.eyebrow':'Contáctame ahora',
+    'cont.h1':'Tres formas','cont.h2':'de empezar hoy.',
+    'cont.intro':'Mientras más rápido hablemos, más fácil es documentar lo que pasó. Escoge el canal que prefieras — atención bilingüe en español o inglés.',
+    'cont.ch.call':'Llamada gratis · USA · 24/7',
+    'cont.ch.wa':'WhatsApp · Bilingüe · 24/7',
+    'cont.ch.bot':'Preguntas rápidas · con un experto',
+    'cont.ch.bot.v':'Abrir chat',
+    'form.eyebrow':'Cuéntame tu caso',
+    'form.t1':'Cuéntame qué','form.t2':'pasó.',
+    'form.sub':'Te respondo entre 15 minutos y 1 hora durante horario activo. Sin compromiso, sin costo por escucharte.',
+    'form.l.name':'Nombre completo','form.ph.name':'Juan Pérez',
+    'form.l.tel':'Teléfono o WhatsApp',
+    'form.l.type':'Tipo de accidente',
+    'form.opt.choose':'Selecciona una opción',
+    'form.opt.auto':'Accidente de auto','form.opt.work':'Accidente de trabajo','form.opt.other':'Otro (cuéntame abajo)',
+    'form.l.date':'Fecha del accidente',
+    'form.l.where':'Dónde ocurrió el accidente','form.ph.where':'Ciudad y estado, ej: Brooklyn, New York',
+    'form.l.live':'Dónde vives actualmente','form.ph.live':'Ciudad y estado donde vives, ej: Queens, New York',
+    'form.l.detail':'Detalles breves (opcional)','form.ph.detail':'Lesiones, otros conductores, ya hablaste con seguro/abogado, etc.',
+    'form.consent':'Autorizo a Dave Calderón a contactarme por teléfono, WhatsApp o email sobre mi consulta. Entiendo que <strong>Dave NO es abogado</strong> y NO me da asesoría legal — su rol es escucharme, orientarme y conectarme con un abogado independiente.',
+    'form.submit':'Enviar mensaje',
+    'form.priv':'Confidencial. No compartido con terceros sin tu autorización.',
+    'footer.disc.t':'Aviso legal importante',
+    'footer.disc.p':'Dave Calderón <strong>NO es abogado</strong> y <strong>NO proporciona asesoría legal ni representación legal</strong>. Su servicio consiste exclusivamente en escuchar el caso del cliente, orientarlo sobre sus opciones y conectarlo con abogados independientes especializados. La decisión de tomar el caso y los términos legales son responsabilidad exclusiva del abogado independiente.',
+    'footer.tagline':'Te oriento después de tu accidente y te conecto con abogados independientes en Estados Unidos. Atención bilingüe español/inglés. <strong>NO soy abogado.</strong>',
+    'footer.h.serv':'Servicios','footer.h.cont':'Contacto',
+    'footer.s1':'Accidente de auto','footer.s2':'Accidente de trabajo','footer.s3':'Cobertura USA',
+    'footer.form':'Formulario','footer.about':'Sobre Dave',
+    'footer.rights':'Todos los derechos reservados',
+    'footer.made':'Hecho por Remake',
+    'msb.call':'Llamar','msb.wa':'WhatsApp',
+    'bot.toggle':'Habla con un experto',
+    'bot.title':'Experto','bot.role':'Equipo Dave Calderón · En línea'
+  },
+  en: {
+    'nav.auto':'Auto','nav.work':'Work','nav.coverage':'Coverage','nav.about':'About Dave',
+    'nav.cta':'Call Now · Free',
+    'mm.auto':'Auto Accident','mm.work':'Work Injury','mm.cov':'Coverage',
+    'mm.about':'About Dave','mm.contact':'Contact',
+    'hero.eyebrow':'Bilingual help · 24/7 every day',
+    'hero.h1.l1':'Hurt in an','hero.h1.l2':'accident?','hero.h1.l3':"You're not alone.",
+    'hero.sub':"I guide you <strong>FREE</strong> through your options and connect you with attorneys specialized in auto, work, slip-and-fall, and dog bite accidents across the United States. In Spanish or English. <strong>No upfront cost. Your immigration status doesn't matter.</strong> I am NOT a lawyer, I do NOT provide legal advice.",
+    'hero.cta.call':'Call Now · Free 24/7',
+    'hero.cta.write':'Get Free Guidance',
+    'hero.disclaimer':'<strong>Dave Calderón is NOT an attorney.</strong> This site does NOT offer legal advice. My role is to listen and connect you with an independent attorney based on your case.',
+    'auto.eyebrow':'Auto Accident',
+    'auto.h1':'Crashes, hit-and-runs,','auto.h2':'the unexpected.',
+    'auto.text':'If you had a car accident in the United States, I listen to what happened and guide you through your options. Then I connect you with an attorney specialized in your area — whether it was a rear-end, multi-car collision, hit-and-run, or accident with an uninsured driver.',
+    'auto.cta':'I had an auto accident',
+    'work.eyebrow':'Work Injury',
+    'work.h1':'On the job.','work.h2':'On a site, in a warehouse, in a kitchen.',
+    'work.text':"Construction, restaurants, warehouses, factories. If you were hurt working in the United States, I listen to your case and guide you. Then I connect you with an attorney specialized in Workers' Compensation or third-party liability, as applicable.",
+    'work.cta':'I was injured at work',
+    'cov.eyebrow':'Nationwide coverage',
+    'cov.h1':'34 states.','cov.h2':'One call.',
+    'cov.intro':"I work with a network of independent attorneys across 34 U.S. states. Wherever your accident happened, there's likely a professional ready to listen. I guide you through your options and connect you with the right attorney for your case.",
+    'cov.stat1':'States covered','cov.stat2':'Bilingual support','cov.stat3':'Initial consult',
+    'about.eyebrow':'Who I am',
+    'about.h1':'Dave Calderón.','about.h2':'Your first contact.',
+    'about.p1':"I know what it feels like to arrive in a new country and have the legal language seem written against you. That's why I do what I do: I listen in Spanish or English, understand your case, and guide you through your options.",
+    'about.quote':'"My mission is simple: no Latino in the United States should be alone after an accident. I listen, I guide you, and I connect you with an attorney who can take your case."',
+    'about.p2':'<strong>I am NOT an attorney. I do NOT provide legal advice.</strong> My role is to listen to what happened, guide you through your options, and connect you with an independent attorney specialized in your accident type and your state.',
+    'about.c1':'Bilingual ES/EN','about.c2':'Free to talk to me','about.c3':"Your status doesn't matter",
+    'about.c4':'Confidential','about.c5':'Network in 34 states','about.c6':'I am NOT a lawyer',
+    'proc.eyebrow':'How it works',
+    'proc.h1':'Three steps.','proc.h2':'No paperwork. No pressure.',
+    'proc.s1.t':'Tell me what happened','proc.s1.d':'Call me, message me on WhatsApp, or fill out the form. In Spanish or English. No commitment.',
+    'proc.s2.t':"Let's talk about your case",'proc.s2.d':'I ask a few questions to understand what happened, when and where. I guide you through your options with direct info, no exaggerated promises.',
+    'proc.s3.t':'I connect you with an attorney','proc.s3.d':'I put you in direct contact with an independent attorney specialized in your accident type and the state where it happened. The attorney evaluates your case and decides how to proceed.',
+    'cont.eyebrow':'Contact me now',
+    'cont.h1':'Three ways','cont.h2':'to start today.',
+    'cont.intro':'The sooner we talk, the easier it is to document what happened. Choose the channel you prefer — bilingual support in Spanish or English.',
+    'cont.ch.call':'Free call · USA · 24/7',
+    'cont.ch.wa':'WhatsApp · Bilingual · 24/7',
+    'cont.ch.bot':'Quick questions · with an expert',
+    'cont.ch.bot.v':'Open chat',
+    'form.eyebrow':'Tell me your case',
+    'form.t1':'Tell me what','form.t2':'happened.',
+    'form.sub':'I respond within 15 minutes to 1 hour during active hours. No commitment, no cost to talk.',
+    'form.l.name':'Full name','form.ph.name':'John Smith',
+    'form.l.tel':'Phone or WhatsApp',
+    'form.l.type':'Type of accident',
+    'form.opt.choose':'Select an option',
+    'form.opt.auto':'Auto accident','form.opt.work':'Work injury','form.opt.other':'Other (tell me below)',
+    'form.l.date':'Date of accident',
+    'form.l.where':'Where the accident happened','form.ph.where':'City and state, e.g.: Brooklyn, New York',
+    'form.l.live':'Where you live now','form.ph.live':'City and state where you live, e.g.: Queens, New York',
+    'form.l.detail':'Brief details (optional)','form.ph.detail':'Injuries, other drivers, did you talk to insurance/lawyer already, etc.',
+    'form.consent':'I authorize Dave Calderón to contact me by phone, WhatsApp or email about my inquiry. I understand <strong>Dave is NOT an attorney</strong> and does NOT give me legal advice — his role is to listen, guide me, and connect me with an independent attorney.',
+    'form.submit':'Send message',
+    'form.priv':'Confidential. Not shared with third parties without your authorization.',
+    'footer.disc.t':'Important legal notice',
+    'footer.disc.p':"Dave Calderón is <strong>NOT an attorney</strong> and <strong>does NOT provide legal advice or legal representation</strong>. His service consists exclusively of listening to the client's case, guiding them through their options, and connecting them with independent attorneys. The decision to take the case and the legal terms are the exclusive responsibility of the independent attorney.",
+    'footer.tagline':'I guide you after your accident and connect you with independent attorneys in the United States. Bilingual support Spanish/English. <strong>I am NOT a lawyer.</strong>',
+    'footer.h.serv':'Services','footer.h.cont':'Contact',
+    'footer.s1':'Auto accident','footer.s2':'Work injury','footer.s3':'USA coverage',
+    'footer.form':'Form','footer.about':'About Dave',
+    'footer.rights':'All rights reserved',
+    'footer.made':'Built by Remake',
+    'msb.call':'Call','msb.wa':'WhatsApp',
+    'bot.toggle':'Talk to an expert',
+    'bot.title':'Expert','bot.role':"Dave Calderón's team · Online"
+  }
+};
+
+let CURRENT_LANG = 'es';
+
+function setLang(lang) {
+  if (!I18N[lang]) return;
+  CURRENT_LANG = lang;
+  document.documentElement.lang = lang;
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const k = el.dataset.i18n;
+    if (I18N[lang][k] !== undefined) el.innerHTML = I18N[lang][k];
+  });
+  document.querySelectorAll('[data-i18n-ph]').forEach(el => {
+    const k = el.dataset.i18nPh;
+    if (I18N[lang][k] !== undefined) el.setAttribute('placeholder', I18N[lang][k]);
+  });
+  document.querySelectorAll('.lang-btn').forEach(btn => {
+    const isActive = btn.dataset.lang === lang;
+    btn.classList.toggle('active', isActive);
+    btn.setAttribute('aria-selected', isActive ? 'true' : 'false');
+  });
+  const formLang = document.getElementById('form_lang');
+  if (formLang) formLang.value = lang;
+  try { localStorage.setItem('dave_lang', lang); } catch(e) {}
+}
+
+document.querySelectorAll('.lang-btn').forEach(btn => {
+  btn.addEventListener('click', () => setLang(btn.dataset.lang));
+});
+
+(function initLang() {
+  const urlParams = new URLSearchParams(window.location.search);
+  const urlLang = urlParams.get('lang');
+  let saved = null;
+  try { saved = localStorage.getItem('dave_lang'); } catch(e) {}
+  const browser = (navigator.language || 'es').slice(0,2).toLowerCase();
+  const lang = (urlLang && I18N[urlLang]) ? urlLang
+             : (saved && I18N[saved]) ? saved
+             : (browser === 'en' ? 'en' : 'es');
+  setLang(lang);
+})();
 
 /* ═════ Scroll progress bar ═════ */
 const scrollProgress = document.getElementById('scrollProgress');
